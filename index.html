@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Deep Learning Financial Fraud Detection System - Results Dashboard with ANN, CNN, LSTM, and Autoencoder anomaly detection.">
+  <title>FraudGuard AI — Financial Fraud Detection Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <span class="icon">🛡️</span>
+      <span>FraudGuard AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#overview" class="active">Overview</a></li>
+      <li><a href="#eda">EDA</a></li>
+      <li><a href="#architecture">Models</a></li>
+      <li><a href="#training">Training</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#anomaly">Anomaly</a></li>
+      <li><a href="#simulator">Simulator</a></li>
+    </ul>
+  </nav>
+
+  <div class="main-content">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="badge">🔬 Deep Learning + Anomaly Detection</div>
+      <h1>Financial <span class="highlight">Fraud Detection</span> System</h1>
+      <p>An intelligent system leveraging ANN, CNN, LSTM, and Autoencoder models to detect fraudulent transactions with
+        high accuracy while minimizing false positives.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="value counter" data-target="50000" data-suffix="" style="color: var(--accent-blue);">0</div>
+          <div class="label">Transactions Analyzed</div>
+        </div>
+        <div class="hero-stat">
+          <div class="value counter" data-target="4" data-suffix="" style="color: var(--accent-purple);">0</div>
+          <div class="label">Deep Learning Models</div>
+        </div>
+        <div class="hero-stat">
+          <div class="value counter" data-target="99.49" data-suffix="%" data-decimals="2"
+            style="color: var(--accent-green);">0</div>
+          <div class="label">Best Accuracy</div>
+        </div>
+        <div class="hero-stat">
+          <div class="value counter" data-target="0.977" data-suffix="" data-decimals="3"
+            style="color: var(--accent-cyan);">0</div>
+          <div class="label">Best AUC-ROC</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pipeline Section -->
+    <section class="section animate-in" id="overview">
+      <div class="section-header">
+        <h2><span class="dot" style="background: var(--accent-blue);"></span> System Pipeline</h2>
+        <p>End-to-end workflow from raw data to fraud detection</p>
+      </div>
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <div class="step-icon" style="background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3);">📊
+          </div>
+          <div class="step-label">Data Loading</div>
+          <div class="step-sub">50,000 transactions</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-icon" style="background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.3);">🔧
+          </div>
+          <div class="step-label">Preprocessing</div>
+          <div class="step-sub">Scaling + SMOTE</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-icon" style="background: rgba(6, 182, 212, 0.1); border-color: rgba(6, 182, 212, 0.3);">🧠
+          </div>
+          <div class="step-label">Model Training</div>
+          <div class="step-sub">ANN / CNN / LSTM / AE</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-icon" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3);">📈
+          </div>
+          <div class="step-label">Evaluation</div>
+          <div class="step-sub">Metrics & ROC</div>
+        </div>
+        <div class="pipeline-arrow">→</div>
+        <div class="pipeline-step">
+          <div class="step-icon" style="background: rgba(236, 72, 153, 0.1); border-color: rgba(236, 72, 153, 0.3);">🔍
+          </div>
+          <div class="step-label">Anomaly Detection</div>
+          <div class="step-sub">Autoencoder</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDA Section -->
+    <section class="section animate-in" id="eda">
+      <div class="section-header">
+        <h2><span class="dot" style="background: var(--accent-purple);"></span> Exploratory Data Analysis</h2>
+        <p>Understanding the dataset structure, class distribution, and feature relationships</p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom: 1.5rem;">
+        <div class="metric-card">
+          <div class="glow" style="background: var(--gradient-1);"></div>
+          <div class="metric-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-blue);">📋</div>
+          <div class="metric-value" style="color: var(--accent-blue);">50,000</div>
+          <div class="metric-label">Total Transactions</div>
+        </div>
+        <div class="metric-card">
+          <div class="glow" style="background: var(--gradient-3);"></div>
+          <div class="metric-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green);">✅</div>
+          <div class="metric-value" style="color: var(--accent-green);">49,750</div>
+          <div class="metric-label">Legitimate</div>
+        </div>
+        <div class="metric-card">
+          <div class="glow" style="background: linear-gradient(135deg, #ef4444, #f59e0b);"></div>
+          <div class="metric-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--accent-red);">⚠️</div>
+          <div class="metric-value" style="color: var(--accent-red);">250</div>
+          <div class="metric-label">Fraudulent</div>
+        </div>
+        <div class="metric-card">
+          <div class="glow" style="background: var(--gradient-4);"></div>
+          <div class="metric-icon" style="background: rgba(139, 92, 246, 0.1); color: var(--accent-purple);">📐</div>
+          <div class="metric-value" style="color: var(--accent-purple);">31</div>
+          <div class="metric-label">Features</div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="plot-container animate-in">
+          <div class="plot-header">📊 Class Distribution & Transaction Amounts</div>
+          <img src="results/eda_class_distribution.png" alt="Class Distribution">
+        </div>
+        <div class="plot-container animate-in">
+          <div class="plot-header">🔥 Feature Correlation Heatmap</div>
+          <img src="results/eda_correlation_heatmap.png" alt="Correlation Heatmap">
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="section animate-in" id="architecture">
+      <div class="section-header">
+        <h2><span class="dot" style="background: var(--accent-cyan);"></span> Model Architectures</h2>
+        <p>Four deep learning models designed for different aspects of fraud detection</p>
+      </div>
+
+      <div class="grid-4">
+        <div class="arch-card animate-in">
+          <div class="arch-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-blue);">🧠</div>
+          <h3>ANN</h3>
+          <div class="arch-type">Supervised · Feedforward</div>
+          <p>Baseline classifier learning non-linear feature relationships with BatchNorm and Dropout.</p>
+          <div class="layers">
+            <div class="layer">Dense(128) → BN → Drop(0.3)</div>
+            <div class="layer">Dense(64) → BN → Drop(0.3)</div>
+            <div class="layer">Dense(32) → BN → Drop(0.2)</div>
+            <div class="layer">Dense(1, sigmoid)</div>
+          </div>
+        </div>
+        <div class="arch-card animate-in">
+          <div class="arch-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--accent-red);">📡</div>
+          <h3>1D-CNN</h3>
+          <div class="arch-type">Supervised · Convolutional</div>
+          <p>Extracts local patterns and feature interactions from transaction data.</p>
+          <div class="layers">
+            <div class="layer">Conv1D(64, k=3) → BN → Pool</div>
+            <div class="layer">Conv1D(128, k=3) → BN → Pool</div>
+            <div class="layer">Flatten → Dense(64)</div>
+            <div class="layer">Dense(1, sigmoid)</div>
+          </div>
+        </div>
+        <div class="arch-card animate-in">
+          <div class="arch-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green);">🔄</div>
+          <h3>LSTM</h3>
+          <div class="arch-type">Supervised · Recurrent</div>
+          <p>Captures temporal and sequential fraud behavior patterns over time.</p>
+          <div class="layers">
+            <div class="layer">LSTM(64, ret_seq) → Drop</div>
+            <div class="layer">LSTM(32) → Drop(0.3)</div>
+            <div class="layer">Dense(32) → BN</div>
+            <div class="layer">Dense(1, sigmoid)</div>
+          </div>
+        </div>
+        <div class="arch-card animate-in">
+          <div class="arch-icon" style="background: rgba(139, 92, 246, 0.1); color: var(--accent-purple);">🔮</div>
+          <h3>Autoencoder</h3>
+          <div class="arch-type">Unsupervised · Anomaly</div>
+          <p>Learns normal patterns; flags high reconstruction error as fraud.</p>
+          <div class="layers">
+            <div class="layer">Enc: 30 → 64 → 32 → 14</div>
+            <div class="layer">Bottleneck: 14 dims</div>
+            <div class="layer">Dec: 14 → 32 → 64 → 30</div>
+            <div class="layer">Loss: MSE</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Training Section -->
+    <section class="section animate-in" id="training">
+      <div class="section-header">
+        <h2><span class="dot" style="background: var(--accent-green);"></span> Training History</h2>
+        <p>Loss and accuracy curves across training epochs for each model</p>
+      </div>
+
+      <div class="tab-group">
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="tab-ann">ANN</button>
+          <button class="tab-btn" data-tab="tab-cnn">CNN</button>
+          <button class="tab-btn" data-tab="tab-lstm">LSTM</button>
+          <button class="tab-btn" data-tab="tab-ae">Autoencoder</button>
+        </div>
+
+        <div id="tab-ann" class="tab-content active">
+          <div class="plot-container">
+            <div class="plot-header">🧠 ANN — Training Loss & Accuracy</div>
+            <img src="results/ann_training_history.png" alt="ANN Training">
+          </div>
+        </div>
+        <div id="tab-cnn" class="tab-content">
+          <div class="plot-container">
+            <div class="plot-header">📡 CNN — Training Loss & Accuracy</div>
+            <img src="results/cnn_training_history.png" alt="CNN Training">
+          </div>
+        </div>
+        <div id="tab-lstm" class="tab-content">
+          <div class="plot-container">
+            <div class="plot-header">🔄 LSTM — Training Loss & Accuracy</div>
+            <img src="results/lstm_training_history.png" alt="LSTM Training">
+          </div>
+        </div>
+        <div id="tab-ae" class="tab-content">
+          <div class="plot-container">
+            <div class="plot-header">🔮 Autoencoder — Training Loss</div>
+            <img src="results/autoencoder_training_history.png" alt="Autoencoder Training">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="section animate-in" id="results">
+      <div class="section-header">
+        <h2><span class="dot" style="background: var(--accent-orange);"></span> Model Comparison & Results</h2>
+        <p>Performance metrics and confusion matrices across all models</p>
+      </div>
+
+      <!-- Comparison Table -->
+      <div class="table-container" style="margin-bottom: 2rem;">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Accuracy</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>F1-Score</th>
+              <th>AUC-ROC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="model-badge"><span class="indicator"
+                    style="background: var(--accent-blue);"></span>ANN</span></td>
+              <td>99.37%</td>
+              <td>38.18%</td>
+              <td class="best-value">42.00%</td>
+              <td class="best-value">40.00%</td>
+              <td>0.8921</td>
+            </tr>
+            <tr>
+              <td><span class="model-badge"><span class="indicator"
+                    style="background: var(--accent-red);"></span>CNN</span></td>
+              <td class="best-value">99.49%</td>
+              <td class="best-value">48.48%</td>
+              <td>32.00%</td>
+              <td>38.55%</td>
+              <td class="best-value">0.9769</td>
+            </tr>
+            <tr>
+              <td><span class="model-badge"><span class="indicator"
+                    style="background: var(--accent-green);"></span>LSTM</span></td>
+              <td>97.74%</td>
+              <td>1.11%</td>
+              <td>4.00%</td>
+              <td>1.74%</td>
+              <td>0.5046</td>
+            </tr>
+            <tr>
+              <td><span class="model-badge"><span class="indicator"
+                    style="background: var(--accent-purple);"></span>Autoencoder</span></td>
+              <td>—</td>
+              <td>—</td>
+              <td class="best-value">100% ✓</td>
+              <td>—</td>
+              <td>0.8372</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Key Insights -->
+      <div class="grid-3" style="margin-bottom: 2rem;">
+        <div class="metric-card animate-in">
+          <div class="glow" style="background: var(--gradient-2);"></div>
+          <div class="metric-icon" style="background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan);">🏆</div>
+          <div class="metric-value" style="color: var(--accent-cyan);">CNN</div>
+          <div class="metric-label">Best AUC-ROC</div>
+          <div class="metric-sub">0.9769 — Best at distinguishing fraud</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="fill" data-width="97.7%" style="background: var(--gradient-2);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="glow" style="background: var(--gradient-1);"></div>
+          <div class="metric-icon" style="background: rgba(59, 130, 246, 0.1); color: var(--accent-blue);">⚖️</div>
+          <div class="metric-value" style="color: var(--accent-blue);">ANN</div>
+          <div class="metric-label">Best F1-Score</div>
+          <div class="metric-sub">0.40 — Best precision-recall balance</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="fill" data-width="40%" style="background: var(--gradient-1);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="glow" style="background: var(--gradient-4);"></div>
+          <div class="metric-icon" style="background: rgba(139, 92, 246, 0.1); color: var(--accent-purple);">🔮</div>
+          <div class="metric-value" style="color: var(--accent-purple);">AE</div>
+          <div class="metric-label">100% Fraud Recall</div>
+          <div class="metric-sub">Catches every fraud — ideal for zero-day attacks</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar">
+              <div class="fill" data-width="100%" style="background: var(--gradient-4);"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROC Curve & Confusion Matrices -->
+      <div class="grid-2">
+        <div class="plot-container animate-in">
+          <div class="plot-header">📉 ROC Curve Comparison</div>
+          <img src="results/roc_comparison.png" alt="ROC Comparison">
+        </div>
+        <div class="animate-in">
+          <div class="tab-group">
+            <div class="tabs">
+              <button class="tab-btn active" data-tab="cm-ann">ANN</button>
+              <button class="tab-btn" data-tab="cm-cnn">CNN</button>
+              <button class="tab-btn" data-tab="cm-lstm">LSTM</button>
+            </div>
+            <div id="cm-ann" class="tab-content active">
+              <div class="plot-container">
+                <div class="plot-header">🧠 ANN Confusion Matrix</div>
+                <img src="results/ann_confusion_matrix.png" alt="ANN CM">
+              </div>
+            </div>
+            <div id="cm-cnn" class="tab-content">
+              <div class="plot-container">
+                <div class="plot-header">📡 CNN Confusion Matrix</div>
+                <img src="results/cnn_confusion_matrix.png" alt="CNN CM">
+              </div>
+            </div>
+            <div id="cm-lstm" class="tab-content">
+              <div class="plot-container">
+                <div class="plot-header">🔄 LSTM Confusion Matrix</div>
+                <img src="results/lstm_confusion_matrix.png" alt="LSTM CM">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Anomaly Detection Section -->
+    <section class="section animate-in" id="anomaly">
+      <div class="section-header">
+        <h2><span class="dot" style="background: var(--accent-pink);"></span> Autoencoder Anomaly Detection</h2>
+        <p>Unsupervised approach — detects novel fraud patterns by measuring reconstruction error</p>
+      </div>
+
+      <div class="grid-3" style="margin-bottom: 1.5rem;">
+        <div class="metric-card animate-in">
+          <div class="glow" style="background: var(--gradient-4);"></div>
+          <div class="metric-icon" style="background: rgba(236, 72, 153, 0.1); color: var(--accent-pink);">🎯</div>
+          <div class="metric-value" style="color: var(--accent-pink);">0.3620</div>
+          <div class="metric-label">Optimal Threshold</div>
+          <div class="metric-sub">MSE threshold maximizing F1-score</div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="glow" style="background: var(--gradient-3);"></div>
+          <div class="metric-icon" style="background: rgba(16, 185, 129, 0.1); color: var(--accent-green);">📊</div>
+          <div class="metric-value" style="color: var(--accent-green);">0.8372</div>
+          <div class="metric-label">AUC-ROC Score</div>
+          <div class="metric-sub">Strong separation between classes</div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="glow" style="background: linear-gradient(135deg, #ef4444, #ec4899);"></div>
+          <div class="metric-icon" style="background: rgba(239, 68, 68, 0.1); color: var(--accent-red);">🔍</div>
+          <div class="metric-value" style="color: var(--accent-red);">100%</div>
+          <div class="metric-label">Fraud Recall</div>
+          <div class="metric-sub">Every fraud transaction detected</div>
+        </div>
+      </div>
+
+      <div class="plot-container animate-in">
+        <div class="plot-header">🔮 Reconstruction Error Distribution & Confusion Matrix</div>
+        <img src="results/autoencoder_anomaly_results.png" alt="Autoencoder Results">
+      </div>
+
+      <div class="card animate-in" style="margin-top: 1.5rem;">
+        <div class="card-title">💡 How Anomaly Detection Works</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+          <div>
+            <h4 style="color: var(--accent-cyan); margin-bottom: 0.5rem;">1. Train on Normal Data</h4>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">The autoencoder learns to reconstruct
+              <strong>only legitimate</strong> transactions, memorizing what "normal" looks like.</p>
+          </div>
+          <div>
+            <h4 style="color: var(--accent-purple); margin-bottom: 0.5rem;">2. Measure Reconstruction Error</h4>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">When a fraudulent transaction is fed in, the
+              model <strong>fails to reconstruct it</strong>, producing a high MSE error.</p>
+          </div>
+          <div>
+            <h4 style="color: var(--accent-pink); margin-bottom: 0.5rem;">3. Threshold & Flag</h4>
+            <p style="color: var(--text-secondary); font-size: 0.875rem;">Transactions with error above the
+              <strong>optimal threshold (0.362)</strong> are flagged as anomalous — potential fraud.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Prediction Simulator Section -->
+    <section class="section animate-in" id="simulator">
+      <div class="section-header">
+        <h2><span class="dot" style="background: var(--accent-cyan);"></span> Live Prediction Simulator</h2>
+        <p>Select a transaction to see how FraudGuard AI evaluates it in real-time</p>
+      </div>
+
+      <div class="simulator-container">
+        <!-- Left: Transaction Selection -->
+        <div class="transaction-list" id="transaction-list">
+          <!-- Sample transactions will be injected here via JS -->
+        </div>
+
+        <!-- Right: Prediction Panel -->
+        <div class="prediction-panel" id="prediction-panel">
+          <div id="prediction-empty" style="text-align: center; margin: auto; color: var(--text-muted);">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+            <p>Select a transaction from the list to start the analysis</p>
+          </div>
+
+          <div id="prediction-content" style="display: none;">
+            <div class="card-title">📦 Input Features</div>
+            <div class="input-features" id="feature-grid">
+              <!-- Features will be injected here -->
+            </div>
+
+            <div style="margin: 2rem 0; text-align: center;">
+              <button class="btn-predict" id="btn-predict">RUN FRAUDGUARD ANALYSIS</button>
+            </div>
+
+            <div id="prediction-loading" class="loading-prediction" style="display: none;">
+              <div class="spinner"></div>
+              <p style="color: var(--text-secondary); font-weight: 500;">Analyzing patterns across models...</p>
+            </div>
+
+            <div id="prediction-results-area" style="display: none;">
+              <div class="card-title">🎯 Model Outputs</div>
+              <div class="prediction-results">
+                <div class="model-result-card">
+                  <h4>ANN Confidence</h4>
+                  <div class="score" id="res-ann-score">0.00%</div>
+                  <div class="label" id="res-ann-label">Legitimate</div>
+                </div>
+                <div class="model-result-card">
+                  <h4>CNN Confidence</h4>
+                  <div class="score" id="res-cnn-score">0.00%</div>
+                  <div class="label" id="res-cnn-label">Legitimate</div>
+                </div>
+                <div class="model-result-card">
+                  <h4>Autoencoder Error</h4>
+                  <div class="score" id="res-ae-error">0.0000</div>
+                  <div class="label" id="res-ae-label">Normal</div>
+                </div>
+              </div>
+
+              <div class="final-verdict" id="final-verdict">
+                VERDICT: LEGITIMATE
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="section animate-in">
+      <div class="section-header">
+        <h2><span class="dot" style="background: var(--accent-blue);"></span> Technology Stack</h2>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+        <span
+          style="padding: 8px 16px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 100px; font-size: 0.85rem; color: var(--accent-blue);">Python
+          3.10</span>
+        <span
+          style="padding: 8px 16px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: 100px; font-size: 0.85rem; color: var(--accent-orange);">TensorFlow
+          / Keras</span>
+        <span
+          style="padding: 8px 16px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 100px; font-size: 0.85rem; color: var(--accent-green);">Scikit-learn</span>
+        <span
+          style="padding: 8px 16px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 100px; font-size: 0.85rem; color: var(--accent-purple);">Pandas
+          / NumPy</span>
+        <span
+          style="padding: 8px 16px; background: rgba(236, 72, 153, 0.1); border: 1px solid rgba(236, 72, 153, 0.2); border-radius: 100px; font-size: 0.85rem; color: var(--accent-pink);">Matplotlib
+          / Seaborn</span>
+        <span
+          style="padding: 8px 16px; background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2); border-radius: 100px; font-size: 0.85rem; color: var(--accent-cyan);">SMOTE
+          (imbalanced-learn)</span>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>🛡️ FraudGuard AI — Financial Fraud Detection System</p>
+      <p style="margin-top: 4px;">Built with Deep Learning & Anomaly Detection • ANN • CNN • LSTM • Autoencoder</p>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
